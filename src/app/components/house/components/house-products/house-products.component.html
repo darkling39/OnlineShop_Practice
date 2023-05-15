@@ -1,0 +1,40 @@
+<div class="hidden sm:block max-w-7xl px-10 mx-auto relative bg-white py-3 rounded-md">
+  <xng-breadcrumb [separator]="iconTemplate" class=""></xng-breadcrumb>
+  <ng-template #iconTemplate class="">
+    <mat-icon id="chevron">chevron_right</mat-icon>
+  </ng-template>
+</div>
+
+<div class="mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
+  <div class="flex flex-row flex-wrap gap-3 justify-center">
+    <div *ngFor="let item of products$ | async" class="bg-white flex flex-col rounded-lg p-3 items-center">
+      <button class="" [routerLink]="['../h-products/product', item.id]">
+        <div class="max-w-fit mx-auto">
+          <img [src]="item.image" class="w-72 sm:w-40 aspect-square">
+        </div>
+        <div class=" mt-4 flex justify-between max-w-fit">
+          <div class="text-left w-36 relative">
+            <h3 class="text-sm text-gray-700 mr-2 max-w-fit truncate">
+              <a href="#"><span aria-hidden="true" class="">{{item.title}}</span></a>
+            </h3>
+            <p class="text-sm font-medium text-gray-900">{{item.price | currency}}</p>
+          </div>
+        </div>
+
+
+      <mat-card-actions class="">
+        <button mat-button type="button" class="btn hover:bg-indigo-500 transition-all ease-in-out duration-300 ">Add to
+          cart</button>
+        <button mat-button class="btn hover:bg-indigo-500 transition-all ease-in-out duration-300 w-fit"
+          >Buy Now</button>
+        <button *ngIf="canEdit" mat-button class="btn hover:bg-indigo-500 transition-all ease-in-out duration-300"
+          [matMenuTriggerFor]="menu">Redact</button>
+        <mat-menu #menu="matMenu" class="items-center justify-center">
+          <button mat-menu-item>Delete</button>
+          <button mat-menu-item>Redact</button>
+        </mat-menu>
+      </mat-card-actions>
+      </button>
+    </div>
+  </div>
+</div>

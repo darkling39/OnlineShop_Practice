@@ -1,0 +1,52 @@
+<div class=" w-full bg-gray-800 sm:mb-7 mb-0">
+  <div class="sm:max-w-full lg:max-w-7xl mx-auto block sm:flex justify-between items-center ">
+
+    <div class="block sm:flex flex-auto justify-center items-center">
+      <button routerLink="/home" class="text-white text-3xl font-semibold px-2 sm:px-10 py-6 hover:bg-gray-600 ansition-all ease-in-out duration-150 rounded-md w-full sm:w-auto">Style</button>
+      <div *ngIf="products$ | async as products" class="w-full flex">
+        <input matInput type="text"
+        placeholder="Search..."
+        class="flex-auto w-full h-10 px-3 rounded-md mx-1"
+        [matAutocomplete]="auto"
+        [(ngModel)]="term"/>
+        <mat-autocomplete #auto="matAutocomplete">
+          <!-- <mat-option *ngFor="let item of products | productFilter: term " [value]="item.title" class="" >
+            <button [routerLink]="['/product', item.id]" class="min-w-full min-h-full py-2 text-start">
+              <span class="">{{item.title}}</span>
+            </button>
+            </mat-option> -->
+          </mat-autocomplete>
+      </div>
+    </div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="w-full py-1 h-full sm:hidden">
+      <mat-icon id="menu">menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" class="">
+      <button mat-menu-item routerLink="/products" class="">
+        <mat-icon>category</mat-icon>
+        <span>Catalogue</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>shopping_cart</mat-icon>
+        <span>Cart</span>
+      </button>
+      <button mat-menu-item *ngIf="!authService.isLoggedIn()" routerLink="/login">
+        <mat-icon>login</mat-icon>
+        <span>Sign In</span>
+      </button>
+      <button mat-menu-item *ngIf="authService.isLoggedIn()" routerLink="/login">
+        <mat-icon>logout</mat-icon>
+        <span>Sign Out</span>
+      </button>
+    </mat-menu>
+    <div class="sm:flex ml-2 hidden">
+      <button class="text-white px-7 py-7 hover:bg-gray-600 hover:text-white transition-all ease-in-out duration-150 rounded-md w-full" routerLink="/products" routerLinkActive="active">Catalogue</button>
+      <button class="text-white px-7 py-7 hover:bg-gray-600 hover:text-white transition-all ease-in-out duration-150 rounded-md w-full" routerLink="" routerLinkActive="active">Cart</button>
+
+      <button *ngIf="!authService.isLoggedIn()"
+        class="text-white px-7 py-7 hover:bg-gray-600 hover:text-white transition-all ease-in-out duration-150 rounded-md w-full sm:min-w-fit " routerLink="/login">Sign In</button>
+      <button *ngIf="authService.isLoggedIn()" (click)="authService.logout()"
+        class="text-white px-7 py-7 hover:bg-gray-600 hover:text-white transition-all ease-in-out duration-150 rounded-md w-full sm:min-w-fit" routerLink="/login">Log Out</button>
+    </div>
+  </div>
+</div>

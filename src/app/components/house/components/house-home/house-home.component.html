@@ -1,0 +1,57 @@
+
+  <div class="hidden sm:block max-w-7xl px-10 mx-auto relative bg-white py-3 rounded-md">
+    <xng-breadcrumb [separator]="iconTemplate" class=""></xng-breadcrumb>
+    <ng-template #iconTemplate class="">
+      <mat-icon id="chevron">chevron_right</mat-icon>
+    </ng-template>
+  </div>
+  <div class="mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 md:max-w-7xl lg:px-8 flex flex-row gap-10">
+    <aside >
+      <div class="text-white bg-gray-800 p-10 rounded-lg hidden sm:flex flex-col">
+        <h1 class="text-xl font-semibold mb-5">Categories:</h1>
+        <div *ngFor="let item of products; let i = index" class="w-40 flex flex-col">
+          <button *ngIf="getPreviousCategory(i) !== item.category" (click)="directTo(item.category)"
+            class="text-lg hover:pl-2 hover:text-gray-400 w-full py-2 transition-all ease-in-out duration-150 text-left"
+            href="#"><span class="">{{item.category}}</span></button>
+        </div>
+      </div>
+    </aside>
+    <main>
+      <h2 class="text-2xl font-bold tracking-tight text-white">Customers also purchased</h2>
+      <div class="mb-10 mt-5 flex flex-row gap-3 flex-wrap justify-center sm:justify-start">
+        <div *ngFor="let item of products$ | async" class="bg-white flex w-fit p-4 items-center aspect-square rounded-lg">
+          <button class="max-w-fit" [routerLink]="['../h-products/product', item.id]">
+            <div class="max-w-fit">
+              <img [src]="item.image" class="w-36 aspect-square">
+            </div>
+            <div class=" mt-4 flex justify-between max-w-fit">
+              <div class="text-left w-36 relative">
+                <h3 class="text-sm text-gray-700 mr-2 max-w-fit truncate">
+                  <a href="#"><span aria-hidden="true" class="">{{item.title}}</span></a>
+                </h3>
+                <p class="text-sm font-medium text-gray-900">{{item.price | currency}}</p>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+      <h2 class="text-2xl font-bold tracking-tight text-white">Best Sellers</h2>
+      <div class="mb-10 mt-5 flex flex-row gap-3 flex-wrap justify-center sm:justify-start">
+        <div *ngFor="let item of products$ | async" class="bg-white flex w-fit p-4 items-center aspect-square rounded-lg">
+          <button class="max-w-fit" [routerLink]="['../h-products/product', item.id]">
+            <div class="max-w-fit">
+              <img [src]="item.image" class="w-36 aspect-square">
+            </div>
+            <div class=" mt-4 flex justify-between max-w-fit">
+              <div class="text-left w-36 relative">
+                <h3 class="text-sm text-gray-700 mr-2 max-w-fit truncate">
+                  <a href="#"><span aria-hidden="true" class="">{{item.title}}</span></a>
+                </h3>
+                <p class="text-sm font-medium text-gray-900">{{item.price | currency}}</p>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
