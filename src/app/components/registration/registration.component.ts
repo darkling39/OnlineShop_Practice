@@ -14,10 +14,8 @@ export class RegistrationComponent {
   constructor(private route: Router, private auth: AuthService) {}
 
   submitRegistration() {
-    this.auth.logIn(this.registrationForm.value).subscribe({
-      next: () => this.route.navigate(['home']),
-      error: (err) => alert(err.message),
-    });
+    this.auth.register(this.registrationForm.value);
+    this.route.navigate(['login']);
   }
 
   ngOnInit(): void {

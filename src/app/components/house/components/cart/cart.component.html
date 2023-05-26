@@ -1,0 +1,43 @@
+<div class="min-h-[100vh]">
+  <div class="hidden sm:block max-w-7xl px-10 mx-auto relative bg-white py-3 rounded-md">
+    <xng-breadcrumb [separator]="iconTemplate" class=""></xng-breadcrumb>
+    <ng-template #iconTemplate class="">
+      <mat-icon id="chevron">chevron_right</mat-icon>
+    </ng-template>
+  </div>
+
+  <div class="mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
+    <div *ngIf="cart && cart.length < 1" class=" mx-auto h-56 w-full flex m-3 bg-white justify-center items-center rounded-lg"><span class="block text-2xl font-extralight text-gray-400">Cart is empty...</span></div>
+    <div *ngIf="cart && cart.length >= 1" class="flex flex-row flex-wrap gap-2 justify-center bg-gray-100 rounded-md p-4">
+      <div *ngFor="let item of cart" class="bg-white flex flex-row justify-between w-full rounded-lg p-3">
+        <!-- <button class="" [routerLink]="['../h-products/product', item.id]">
+        </button> -->
+          <div class="max-w-fit p-3 flex flex-row">
+            <img [src]="item.image" class="w-72 sm:w-40 aspect-auto">
+            <div class="text-left p-3 mt-3 mx-3">
+              <h3 class="text-gray-700 text-lg w-48 ">{{item.title}}</h3>
+            </div>
+          </div>
+          <div class="flex flex-row items-center">
+            <div class="text-left p-4 ">
+              <p class=" text-gray-500 text-right py-2">Price</p>
+              <span class="font-medium my-2 block">{{item.price | currency}}</span>
+            </div>
+            <div class="text-left p-3 ">
+              <p class=" text-gray-500 text-right py-1 mb-1">Quantity</p>
+              <button (click)="minusItemFromCart(item)" class="text-indigo-500 text-xl py-1 px-2 hover:bg-gray-100 rounded-md">-</button>
+              <span class="font-medium mx-4">{{item.quantity}}</span>
+              <button (click)="plusItemFromCart(item)" class="text-indigo-500 text-xl py-1 px-2 hover:bg-gray-100 rounded-md">+</button>
+            </div>
+            <div class="text-left p-4 ">
+              <p class=" text-gray-500 text-right py-2">Total</p>
+              <span class="font-medium my-2 block">{{item.price * item.quantity | currency}}</span>
+            </div>
+          </div>
+      </div>
+      <div class="w-full text-end">
+        <button (click)="openDialog()" class="mt-2 px-12 py-4 bg-blue-500 rounded-md text-white hover:bg-blue-400 transition all ease-in-out duration-350">Buy</button>
+      </div>
+    </div>
+  </div>
+</div>

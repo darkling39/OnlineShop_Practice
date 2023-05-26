@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,15 +10,18 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  constructor(
+    private route: Router,
+    public auth: AuthService,
+    private snackBar: MatSnackBar
+  ) {}
+
   loginForm!: FormGroup;
-
-  constructor(private route: Router, private auth: AuthService) {}
-
+  openSnackBar() {
+    this.snackBar.open('Failed to login', ' X ');
+  }
   submitLogin() {
-    this.auth.logIn(this.loginForm.value).subscribe({
-      next: () => this.route.navigate(['home']),
-      error: (err) => alert(err.message),
-    });
+    this.auth.logIn(this.loginForm.value);
   }
 
   ngOnInit(): void {
@@ -30,7 +34,7 @@ export class LoginComponent implements OnInit {
       ]),
     });
     if (this.auth.isLoggedIn()) {
-      this.route.navigate(['home']);
+      this.route.navigate(['house/h-home']);
     }
   }
 }

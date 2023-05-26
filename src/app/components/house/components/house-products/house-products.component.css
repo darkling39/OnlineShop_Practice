@@ -10,9 +10,12 @@ mat-icon{
 .btn{
   padding: .5rem .5rem;
   margin: 0 0.1rem;
-  border-radius: 10%;
+  border-radius: 5%;
 }
 #add{
   background-color: white;
 
+}
+.mdc-card__actions{
+  justify-content: center !important;
 }

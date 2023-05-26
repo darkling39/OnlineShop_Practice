@@ -6,6 +6,7 @@ import { HouseHomeComponent } from './components/house-home/house-home.component
 import { HouseDetailsComponent } from './components/house-details/house-details.component';
 import { ProductResolver } from 'src/app/resolvers/product.resolver';
 import { ProductsResolver } from 'src/app/resolvers/products.resolver';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,11 @@ const routes: Routes = [
         path: 'h-products/product/:id',
         component: HouseDetailsComponent,
         resolve: { data: ProductResolver },
+      },
+      {
+        path: 'h-cart',
+        component: CartComponent,
+        data: { breadcrumb: { alias: 'Cart' } },
       },
     ],
   },

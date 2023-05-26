@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, ObservedValueOf, Subscription, map } from 'rxjs';
 import { IProducts } from 'src/app/components/models/products';
 import { ProductService } from 'src/app/services/product.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -18,19 +18,28 @@ export class HouseHomeComponent {
     private router: Router,
     private storage: StorageService
   ) {}
-  products$: Observable<IProducts[]>;
+  recent: IProducts[];
+  recent$: Observable<IProducts[]> = this.productService
+    .getRecentlyProducts()
+    .pipe(
+      map((data) => {
+        return data.reverse().slice(0, 5);
+      })
+    );
+  recentSub: Subscription;
   products: IProducts[];
   productSubscription: Subscription;
+
   details = false;
   href: string = '';
 
   ngOnInit(): void {
-    this.products$ = this.productService.getRecentlyProducts();
     this.productSubscription = this.productService
       .getAllProducts()
-      .subscribe((data) => {
-        this.products = data;
+      .subscribe((prodData) => {
+        this.products = prodData;
       });
+
     this.breadService.set('house', 'Home');
   }
 

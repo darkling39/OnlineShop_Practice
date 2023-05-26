@@ -10,11 +10,18 @@ import { HHeaderComponent } from './components/ui/h-header/h-header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductFilterPipe } from 'src/app/pipes/product-filter.pipe';
 import { MatCardModule } from '@angular/material/card';
 import { HouseDetailsComponent } from './components/house-details/house-details.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { CartComponent } from './components/cart/cart.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -25,6 +32,8 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
     HHeaderComponent,
     ProductFilterPipe,
     HouseDetailsComponent,
+    CartComponent,
+    DialogBoxComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +44,11 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
     FormsModule,
     MatCardModule,
     BreadcrumbModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatInputModule,
   ],
 })
 export class HouseModule {}

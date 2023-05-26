@@ -1,0 +1,90 @@
+
+
+  <mat-stepper #stepper class="max-w-2xl">
+    <mat-step [stepControl]="firstFormGroup" errorMessage="Field is required.">
+      <form [formGroup]="firstFormGroup" class="flex flex-col py-3 px-0" (ngSubmit)="onSubmit()">
+        <ng-template matStepLabel>Fill personal data</ng-template>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput [errorStateMatcher]="matcher" placeholder="Last name, First name"  formControlName="nameCtrl" type="text" class="">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput [errorStateMatcher]="matcher" placeholder="Email" formControlName="emailCtrl" type="email" required >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Phone number</mat-label>
+          <input matInput [errorStateMatcher]="matcher" placeholder="Phone number" formControlName="phoneCtrl" type="text" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput [errorStateMatcher]="matcher" placeholder="Address" formControlName="addressCtrl" type="text" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Post index</mat-label>
+          <input matInput [errorStateMatcher]="matcher" placeholder="Post index" formControlName="indexCtrl" type="text" required>
+        </mat-form-field>
+        <div>
+          <button
+          class="py-2 px-4 hover:bg-indigo-400 transition-all ease-in-out duration-200 rounded-sm mt-2 "
+          mat-button
+          (click)="this.dialogRef.close()"
+          >Cancel</button>
+          <button
+          class="py-2 px-4 hover:bg-indigo-400 transition-all ease-in-out duration-200 rounded-sm mt-2 "
+          mat-button
+          matStepperNext
+          type="submit"
+          >Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+      <ng-template matStepLabel class="mb-2">Check your order</ng-template>
+      <h1 class="font-extralight">Your order</h1>
+      <div *ngIf="cart$ | async as order" class="flex flex-row flex-wrap bg-gray-100 rounded-md">
+        <div *ngFor="let item of order" class="flex flex-col p-3">
+            <img [src]="item.image" class="w-32 aspect-square " alt="">
+            <div>
+              <h3 class="w-32 text-sm text-gray-600 truncate px-2">{{item.title}}</h3>
+              <div class="flex flex-row justify-between px-2">
+                <h3 class="text-sm">{{item.price * item.quantity | currency}}</h3>
+                <h3>{{item.quantity}}</h3>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="text-end p-2 mt-2 font-extralight text-gray-600">
+        <p>Full price: <span class="font-semibold">{{this.fullPrice | currency}}</span></p>
+      </div>
+      <div>
+        <h1 class="font-extralight">Name: <span class="font-semibold">{{data?.name}}</span></h1>
+        <h1 class="font-extralight">Email: <span class="font-semibold">{{data?.email}}</span></h1>
+        <h1 class="font-extralight">Phone: <span class="font-semibold">{{data?.phone}}</span></h1>
+        <h1 class="font-extralight">Address: <span class="font-semibold">{{data?.address}}</span></h1>
+        <h1 class="font-extralight">Post Index: <span class="font-semibold">{{data?.index}}</span></h1>
+
+      </div>
+      <button mat-button matStepperPrevious class="py-2 px-4 hover:bg-indigo-400 transition-all ease-in-out duration-200 rounded-sm mt-2 ">Back</button>
+      <button mat-button (click)="onConfirm()" matStepperNext class="py-2 px-4 hover:bg-indigo-400 transition-all ease-in-out duration-200 rounded-sm mt-2 ">Confirm</button>
+      <!-- <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput placeholder="Ex. 1 Main St, New York, NY" formControlName="secondCtrl"
+                 required>
+        </mat-form-field>
+        <div>
+          <p>Go to a different step to see the error state</p>
+        </div>
+      </form> -->
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Complete</ng-template>
+      <p class="text-lg text-green-500 text-center font-extralight my-10">Congratulations! The order has ben confirmed!</p>
+      <div >
+        <button mat-button (click)="toHome()" matStepperPrevious class="py-2 px-4 hover:bg-indigo-400 transition-all ease-in-out duration-200 rounded-sm mt-2 ">Home</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+

@@ -13,30 +13,26 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { BreadcrumbService } from 'xng-breadcrumb';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
 
-import { ProductsComponent } from './components/products/products.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { DetailsComponent } from './components/details/details.component';
+
 import { SortingPipe } from './pipes/sorting.pipe';
-import { HomeComponent } from './components/home/home.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NotFoundComponent,
-    ProductsComponent,
-    HeaderComponent,
-    FooterComponent,
+    ForgotPasswordComponent,
     RegistrationComponent,
-    DetailsComponent,
     SortingPipe,
-    HomeComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +48,8 @@ import { HomeComponent } from './components/home/home.component';
     FormsModule,
     MatInputModule,
     BreadcrumbModule,
+    MatSnackBarModule,
+    MatButtonModule,
   ],
   providers: [BreadcrumbService],
   bootstrap: [AppComponent],
