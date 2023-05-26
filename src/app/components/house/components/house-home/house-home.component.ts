@@ -18,7 +18,7 @@ export class HouseHomeComponent {
     private router: Router,
     private storage: StorageService
   ) {}
-  recent: IProducts[];
+
   recent$: Observable<IProducts[]> = this.productService
     .getRecentlyProducts()
     .pipe(
@@ -26,9 +26,10 @@ export class HouseHomeComponent {
         return data.reverse().slice(0, 5);
       })
     );
-  recentSub: Subscription;
   products: IProducts[];
   productSubscription: Subscription;
+
+  bestSellers$: Observable<IProducts[]> = this.productService.getBestSellers();
 
   details = false;
   href: string = '';

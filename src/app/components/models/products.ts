@@ -7,4 +7,5 @@ export interface IProducts {
   image: string;
   quantity: number;
   rating: { rate: number; count: number };
+  purchaces: number;
 }

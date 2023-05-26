@@ -21,6 +21,7 @@ export class CartComponent {
   cart: IProducts[];
   cartSubscription: Subscription;
   totalPrice: number = 0;
+  cart$: Observable<IProducts[]> = this.ProductsService.getProductFromCart();
 
   ngOnInit(): void {
     this.cartSubscription = this.ProductsService.getProductFromCart().subscribe(

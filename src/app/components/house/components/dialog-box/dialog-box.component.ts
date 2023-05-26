@@ -12,7 +12,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, Subscription, delay, map } from 'rxjs';
 import { IProducts } from 'src/app/components/models/products';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
+import { RecentService } from 'src/app/services/recent.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -44,18 +46,20 @@ export class DialogBoxComponent {
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService,
+    private recentService: RecentService
   ) {}
 
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   cart$: Observable<IProducts[]> = this.productService.getProductFromCart();
-  cart: IProducts[];
-  cartSubscription: Subscription;
+  // cart: IProducts[];
+  // cartSubscription: Subscription;
 
   recent$: Observable<IProducts[]> = this.productService.getRecentlyProducts();
-  recent: IProducts[];
-  recentSubscription: Subscription;
+  // recent: IProducts[];
+  // recentSubscription: Subscription;
 
   fullPrice: number = 0;
   matcher: ErrorStateMatcher = new MyErrorStateMatcher();
@@ -81,14 +85,14 @@ export class DialogBoxComponent {
         Validators.maxLength(5),
       ]),
     });
-    this.cartSubscription = this.productService
-      .getProductFromCart()
-      .subscribe((data) => {
-        this.cart = data;
-      });
-    this.recentSubscription = this.productService
-      .getRecentlyProducts()
-      .subscribe((data) => (this.recent = data));
+    // this.cartSubscription = this.productService
+    //   .getProductFromCart()
+    //   .subscribe((data) => {
+    //     this.cart = data;
+    //   });
+    // this.recentSubscription = this.productService
+    //   .getRecentlyProducts()
+    //   .subscribe((data) => (this.recent = data));
   }
 
   // deleteCart() {
@@ -135,13 +139,13 @@ export class DialogBoxComponent {
   //   });
   // }
   onConfirm() {
-    this.productService.addToRecent(this.cart$, this.recent$);
+    this.recentService.addToRecent(this.cart$, this.recent$);
   }
   toHome() {
     this.dialogRef.close();
-    this.productService.deleteCart(this.cart$);
+    this.cartService.deleteCart(this.cart$);
     this.router.navigateByUrl('house/h-home');
-    this.productService.deleteRest(this.recent$);
+    this.recentService.deleteRest(this.recent$);
   }
   onSubmit() {
     this.data = {

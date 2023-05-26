@@ -7,6 +7,7 @@
   </div>
 
   <div class="mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
+
     <div *ngIf="cart && cart.length < 1" class=" mx-auto h-56 w-full flex m-3 bg-white justify-center items-center rounded-lg"><span class="block text-2xl font-extralight text-gray-400">Cart is empty...</span></div>
     <div *ngIf="cart && cart.length >= 1" class="flex flex-row flex-wrap gap-2 justify-center bg-gray-100 rounded-md p-4">
       <div *ngFor="let item of cart" class="bg-white flex flex-row justify-between w-full rounded-lg p-3">
@@ -40,4 +41,5 @@
       </div>
     </div>
   </div>
+
 </div>
