@@ -91,57 +91,57 @@ export class DialogBoxComponent {
       .subscribe((data) => (this.recent = data));
   }
 
-  deleteCart() {
-    this.cart$.subscribe((data) => {
-      data.map((item) => {
-        this.productService
-          .deleteProductFromCart(item.id)
-          .pipe(delay(3000))
-          .subscribe();
-      });
-    });
-  }
-  addToRecent() {
-    let recId: Array<number> = [];
-    this.recent$.subscribe((recData) => {
-      recData.map((recItem) => {
-        recId.push(recItem.id);
-      });
-    });
+  // deleteCart() {
+  //   this.cart$.subscribe((data) => {
+  //     data.map((item) => {
+  //       this.productService
+  //         .deleteProductFromCart(item.id)
+  //         .pipe(delay(3000))
+  //         .subscribe();
+  //     });
+  //   });
+  // }
+  // addToRecent() {
+  //   let recId: Array<number> = [];
+  //   this.recent$.subscribe((recData) => {
+  //     recData.map((recItem) => {
+  //       recId.push(recItem.id);
+  //     });
+  //   });
 
-    this.cart$.subscribe((cartData) => {
-      cartData.map((cartItem) => {
-        if (!recId.includes(cartItem.id)) {
-          this.productService
-            .postProductToRecently(cartItem)
-            .pipe(delay(3000))
-            .subscribe((data) => {});
-        } else {
-          console.log('same');
-        }
-      });
-    });
-  }
-  deleteRest() {
-    this.recent$.subscribe((recData) => {
-      recData
-        .reverse()
-        .slice(5, recData.length)
-        .map((item) => {
-          this.productService
-            .deleteProductFromRecent(item.id)
-            .subscribe((data) => {});
-        });
-    });
-  }
+  //   this.cart$.subscribe((cartData) => {
+  //     cartData.map((cartItem) => {
+  //       if (!recId.includes(cartItem.id)) {
+  //         this.productService
+  //           .postProductToRecently(cartItem)
+  //           .pipe(delay(3000))
+  //           .subscribe((data) => {});
+  //       } else {
+  //         console.log('same');
+  //       }
+  //     });
+  //   });
+  // }
+  // deleteRest() {
+  //   this.recent$.subscribe((recData) => {
+  //     recData
+  //       .reverse()
+  //       .slice(5, recData.length)
+  //       .map((item) => {
+  //         this.productService
+  //           .deleteProductFromRecent(item.id)
+  //           .subscribe((data) => {});
+  //       });
+  //   });
+  // }
   onConfirm() {
-    this.addToRecent();
+    this.productService.addToRecent(this.cart$, this.recent$);
   }
   toHome() {
     this.dialogRef.close();
-    this.deleteCart();
+    this.productService.deleteCart(this.cart$);
     this.router.navigateByUrl('house/h-home');
-    this.deleteRest();
+    this.productService.deleteRest(this.recent$);
   }
   onSubmit() {
     this.data = {

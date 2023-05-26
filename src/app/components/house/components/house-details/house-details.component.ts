@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IProducts } from 'src/app/components/models/products';
 import { ProductService } from 'src/app/services/product.service';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
@@ -16,13 +16,15 @@ export class HouseDetailsComponent {
   productSubscription: Subscription;
   cart: IProducts[];
   cartSubscription: Subscription;
+  cart$: Observable<IProducts[]> = this.productsService.getProductFromCart();
+
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductService,
     public dialog: MatDialog
   ) {}
+
   addToCart(product: IProducts) {
-    // product.rating.count = 1;
     let findItem;
     if (this.cart.length > 0) {
       findItem = this.cart.find((item) => item.id === product.id);
@@ -47,21 +49,21 @@ export class HouseDetailsComponent {
       this.product = data['data'];
       console.log(this.product);
     });
-
-    this.cartSubscription = this.productsService
-      .getProductFromCart()
-      .subscribe((data) => {
-        this.cart = data;
-      });
   }
+  openDialog(): void {
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+  buyNow() {
+    this.product.quantity = 1;
+    this.productsService.deleteCart(this.cart$);
 
-  // buyNow(product: IProducts): void {
-  //   let dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-
-  //   const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
+    this.productsService.postProductToCart(this.product).subscribe();
+    this.openDialog();
+    this.cart.map((item) => {});
+  }
 }

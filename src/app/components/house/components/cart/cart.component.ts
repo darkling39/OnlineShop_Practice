@@ -13,7 +13,7 @@ import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 })
 export class CartComponent {
   constructor(
-    private ProductsService: ProductService,
+    public ProductsService: ProductService,
     private breadService: BreadcrumbService,
     public dialog: MatDialog
   ) {}
