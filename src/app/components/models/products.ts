@@ -8,4 +8,5 @@ export interface IProducts {
   quantity: number;
   rating: { rate: number; count: number };
   purchaces: number;
+  reviews: Array<string>;
 }

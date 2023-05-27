@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { ProductSortingPipe } from 'src/app/pipes/product-sorting.pipe';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ProductSortingPipe } from 'src/app/pipes/product-sorting.pipe';
     MatStepperModule,
     ReactiveFormsModule,
     MatInputModule,
+    NgImageSliderModule,
   ],
 })
 export class HouseModule {}

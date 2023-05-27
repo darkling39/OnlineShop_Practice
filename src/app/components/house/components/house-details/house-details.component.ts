@@ -16,6 +16,8 @@ export class HouseDetailsComponent {
   product: IProducts;
   productSubscription: Subscription;
   cart$: Observable<IProducts[]> = this.productsService.getProductFromCart();
+  imageObjects: Array<object>;
+  sliderInfinite: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,6 +56,24 @@ export class HouseDetailsComponent {
     this.productSubscription = this.route.data.subscribe((data) => {
       this.product = data['data'];
       console.log(this.product);
+      this.imageObjects = [
+        {
+          image: this.product.image,
+          thumbImage: this.product.image,
+        },
+        {
+          image: this.product.image,
+          thumbImage: this.product.image,
+        },
+        {
+          image: this.product.image,
+          thumbImage: this.product.image,
+        },
+        {
+          image: this.product.image,
+          thumbImage: this.product.image,
+        },
+      ];
     });
   }
   openDialog(): void {
@@ -70,5 +90,9 @@ export class HouseDetailsComponent {
 
     this.productsService.postProductToCart(this.product).subscribe();
     this.openDialog();
+  }
+
+  createReview() {
+    this.product.reviews.push();
   }
 }
