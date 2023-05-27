@@ -12,6 +12,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, Subscription, delay, map } from 'rxjs';
 import { IProducts } from 'src/app/components/models/products';
+import { BestSellersService } from 'src/app/services/best-sellers.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { RecentService } from 'src/app/services/recent.service';
@@ -48,7 +49,8 @@ export class DialogBoxComponent {
     private productService: ProductService,
     private router: Router,
     private cartService: CartService,
-    private recentService: RecentService
+    private recentService: RecentService,
+    private bestService: BestSellersService
   ) {}
 
   firstFormGroup!: FormGroup;
@@ -60,6 +62,8 @@ export class DialogBoxComponent {
   recent$: Observable<IProducts[]> = this.productService.getRecentlyProducts();
   // recent: IProducts[];
   // recentSubscription: Subscription;
+  bestSellers$: Observable<IProducts[]> =
+    this.productService.getProductsFromBestSellers();
 
   fullPrice: number = 0;
   matcher: ErrorStateMatcher = new MyErrorStateMatcher();
@@ -95,6 +99,28 @@ export class DialogBoxComponent {
     //   .subscribe((data) => (this.recent = data));
   }
 
+  onConfirm() {
+    this.recentService.addToRecent(this.cart$, this.recent$);
+    this.bestService.addTobestSellers(this.cart$, this.bestSellers$);
+  }
+  toHome() {
+    this.dialogRef.close();
+    this.cartService.deleteCart(this.cart$);
+    this.router.navigateByUrl('house/h-home');
+    this.recentService.deleteRest(this.recent$);
+  }
+  onSubmit() {
+    this.data = {
+      name: this.firstFormGroup.value.nameCtrl,
+      email: this.firstFormGroup.value.emailCtrl,
+      phone: this.firstFormGroup.value.phoneCtrl,
+      address: this.firstFormGroup.value.addressCtrl,
+      index: this.firstFormGroup.value.indexCtrl,
+    };
+    this.cart$.subscribe((data) => {
+      data.map((item) => (this.fullPrice += item.quantity * item.price));
+    });
+  }
   // deleteCart() {
   //   this.cart$.subscribe((data) => {
   //     data.map((item) => {
@@ -138,25 +164,4 @@ export class DialogBoxComponent {
   //       });
   //   });
   // }
-  onConfirm() {
-    this.recentService.addToRecent(this.cart$, this.recent$);
-  }
-  toHome() {
-    this.dialogRef.close();
-    this.cartService.deleteCart(this.cart$);
-    this.router.navigateByUrl('house/h-home');
-    this.recentService.deleteRest(this.recent$);
-  }
-  onSubmit() {
-    this.data = {
-      name: this.firstFormGroup.value.nameCtrl,
-      email: this.firstFormGroup.value.emailCtrl,
-      phone: this.firstFormGroup.value.phoneCtrl,
-      address: this.firstFormGroup.value.addressCtrl,
-      index: this.firstFormGroup.value.indexCtrl,
-    };
-    this.cart$.subscribe((data) => {
-      data.map((item) => (this.fullPrice += item.quantity * item.price));
-    });
-  }
 }

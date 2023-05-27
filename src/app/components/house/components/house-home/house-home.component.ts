@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, ObservedValueOf, Subscription, map } from 'rxjs';
 import { IProducts } from 'src/app/components/models/products';
 import { ProductService } from 'src/app/services/product.service';
+import { RecentService } from 'src/app/services/recent.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
@@ -16,7 +17,8 @@ export class HouseHomeComponent {
     private productService: ProductService,
     private breadService: BreadcrumbService,
     private router: Router,
-    private storage: StorageService
+    private storage: StorageService,
+    private recentService: RecentService
   ) {}
 
   recent$: Observable<IProducts[]> = this.productService
@@ -29,7 +31,8 @@ export class HouseHomeComponent {
   products: IProducts[];
   productSubscription: Subscription;
 
-  bestSellers$: Observable<IProducts[]> = this.productService.getBestSellers();
+  bestSellers$: Observable<IProducts[]> =
+    this.productService.getProductsFromBestSellers();
 
   details = false;
   href: string = '';
@@ -40,7 +43,6 @@ export class HouseHomeComponent {
       .subscribe((prodData) => {
         this.products = prodData;
       });
-
     this.breadService.set('house', 'Home');
   }
 

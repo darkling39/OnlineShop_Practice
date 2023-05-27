@@ -29,15 +29,15 @@
                 <h3 class="text-sm text-gray-700 mr-2 max-w-fit truncate">
                   <a href="#"><span aria-hidden="true" class="">{{item.title}}</span></a>
                 </h3>
-                <p class="text-sm font-medium text-gray-900">{{item.price | currency}}</p>
+                <p class="text-sm font-medium text-gray-900"> {{item.price | currency}}</p>
               </div>
             </div>
           </button>
         </div>
       </div>
       <h2 class="text-2xl font-bold tracking-tight text-white">Best Sellers</h2>
-      <div class="mb-10 mt-5 flex flex-row gap-3 flex-wrap justify-center sm:justify-start">
-        <div *ngFor="let item of bestSellers$ | async" class="bg-white flex w-fit p-4 items-center aspect-square rounded-lg">
+      <div *ngIf="bestSellers$ | async as bestSellers" class="mb-10 mt-5 flex flex-row gap-3 flex-wrap justify-center sm:justify-start">
+        <div *ngFor="let item of bestSellers | productSorting" class="bg-white flex w-fit p-4 items-center aspect-square rounded-lg">
           <button class="max-w-fit" [routerLink]="['../h-products/product', item.id]">
             <div class="max-w-fit">
               <img [src]="item.image" class="w-36 aspect-square">
@@ -48,6 +48,7 @@
                   <a href="#"><span aria-hidden="true" class="">{{item.title}}</span></a>
                 </h3>
                 <p class="text-sm font-medium text-gray-900">{{item.price | currency}}</p>
+                <p class="text-sm font-medium text-gray-900">Purchaces {{item.purchaces}}</p>
               </div>
             </div>
           </button>

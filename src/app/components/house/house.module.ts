@@ -21,7 +21,7 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { ProductSortingPipe } from 'src/app/pipes/product-sorting.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +34,7 @@ import { MatButtonModule } from '@angular/material/button';
     HouseDetailsComponent,
     CartComponent,
     DialogBoxComponent,
+    ProductSortingPipe,
   ],
   imports: [
     CommonModule,

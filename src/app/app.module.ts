@@ -20,8 +20,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-
-import { SortingPipe } from './pipes/sorting.pipe';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
@@ -31,7 +29,6 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     NotFoundComponent,
     ForgotPasswordComponent,
     RegistrationComponent,
-    SortingPipe,
     ForgotPasswordComponent,
   ],
   imports: [

@@ -44,11 +44,17 @@ export class ProductService {
     return this.http.delete<any>(`${this.urlCart}/${id}`);
   }
 
-  postToBestSellers(product: IProducts) {
+  postProductToBestSellers(product: IProducts) {
     return this.http.post<IProducts>(this.urlBestSellers, product);
   }
-  getBestSellers() {
+  getProductsFromBestSellers() {
     return this.http.get<IProducts[]>(this.urlBestSellers);
+  }
+  updateProductToBestSellers(product: IProducts) {
+    return this.http.put<IProducts>(
+      `${this.urlBestSellers}/${product.id}`,
+      product
+    );
   }
 
   // addToCart(product: IProducts, cart$: Observable<IProducts[]>) {

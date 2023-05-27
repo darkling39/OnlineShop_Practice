@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IProducts } from '../components/models/products';
 import { ProductService } from './product.service';
 
@@ -17,7 +17,9 @@ export class RecentService {
         .map((item) => {
           this.productService
             .deleteProductFromRecent(item.id)
-            .subscribe((data) => {});
+            .subscribe((data) => {
+              console.log('rest products deleted');
+            });
         });
     });
   }
