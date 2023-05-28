@@ -28,33 +28,6 @@ export class HouseDetailsComponent {
   imageObjects: Array<object>;
   sliderInfinite: boolean = true;
   products: Observable<IProducts[]> = this.productsService.getAllProducts();
-
-  // addToCart(product: IProducts) {
-  //   let findItem;
-  //   this.cart$
-  //     .pipe(
-  //       map((data) => {
-  //         if (data.length > 0) {
-  //           findItem = data.find((fItem) => fItem.id === product.id);
-  //           if (findItem) this.productsService.updateToCart(findItem);
-  //           else this.productsService.postToCart(product);
-  //         } else this.productsService.postToCart(product);
-  //       })
-  //     )
-  //     .subscribe((data) => {});
-  // }
-
-  // postToCart(product: IProducts) {
-  //   product.quantity = 1;
-  //   this.productsService
-  //     .postProductToCart(product)
-  //     .subscribe((data) => this.cart.push(data));
-  // }
-
-  // updateToCart(product: IProducts) {
-  //   product.quantity += 1;
-  //   this.productsService.updateProductToCart(product).subscribe((data) => {});
-  // }
   ngOnInit(): void {
     this.productSubscription = this.route.data.subscribe((data) => {
       this.product = data['data'];

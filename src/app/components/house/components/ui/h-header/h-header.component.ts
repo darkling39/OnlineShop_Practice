@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable, Subscription, map, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';

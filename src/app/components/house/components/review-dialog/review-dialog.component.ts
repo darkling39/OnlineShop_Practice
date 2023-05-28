@@ -42,6 +42,5 @@ export class ReviewDialogComponent {
       this.productService.updateProduct(item).subscribe();
     }
     this.dialogRef.close();
-    // console.log(this.data?.text);
   }
 }

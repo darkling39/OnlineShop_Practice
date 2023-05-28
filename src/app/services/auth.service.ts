@@ -10,7 +10,6 @@ import { UserService } from './user.service';
 export class AuthService {
   constructor(private route: Router, private userService: UserService) {}
   users: IUser[] = [];
-  // users$: Observable<IUser[]> = this.userService.getAllUsers();
   userSubscription: Subscription;
 
   setToken(token: string) {

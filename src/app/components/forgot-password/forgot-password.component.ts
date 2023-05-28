@@ -6,7 +6,6 @@ import {
   style,
   animate,
   transition,
-  // ...
 } from '@angular/animations';
 
 const enterTransition = transition(':enter', [

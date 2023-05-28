@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, ObservedValueOf, Subscription, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { IProducts } from 'src/app/components/models/products';
 import { ProductService } from 'src/app/services/product.service';
 import { RecentService } from 'src/app/services/recent.service';
@@ -17,8 +17,7 @@ export class HouseHomeComponent {
     private productService: ProductService,
     private breadService: BreadcrumbService,
     private router: Router,
-    private storage: StorageService,
-    private recentService: RecentService
+    private storage: StorageService
   ) {}
 
   recent$: Observable<IProducts[]> = this.productService

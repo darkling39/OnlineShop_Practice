@@ -48,22 +48,5 @@ export class RecentService {
         })
       )
       .subscribe();
-    // cart.subscribe((cartData) => {
-    //   cartData.map((cartItem) => {
-    //     if (!recId.includes(cartItem.id)) {
-    //       this.productService
-    //         .postProductToRecently(cartItem)
-    //         .subscribe((data) => {});
-    //     } else {
-    //       console.log('same');
-    //       this.productService
-    //         .deleteProductFromRecent(cartItem.id)
-    //         .subscribe((data) => {});
-    //       this.productService
-    //         .postProductToRecently(cartItem)
-    //         .subscribe((data) => {});
-    //     }
-    //   });
-    // });
   }
 }
