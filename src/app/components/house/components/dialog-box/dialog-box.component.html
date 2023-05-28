@@ -1,6 +1,6 @@
 
 
-  <mat-stepper #stepper class="max-w-2xl">
+  <mat-stepper linear #stepper class="max-w-2xl">
     <mat-step [stepControl]="firstFormGroup" errorMessage="Field is required.">
       <form [formGroup]="firstFormGroup" class="flex flex-col py-3 px-0" (ngSubmit)="onSubmit()">
         <ng-template matStepLabel>Fill personal data</ng-template>
