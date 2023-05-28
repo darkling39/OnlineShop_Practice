@@ -32,7 +32,6 @@ export class HouseDetailsComponent {
     this.productSubscription = this.route.data.subscribe((data) => {
       this.product = data['data'];
       this.storage.selectedItem = this.product;
-      console.log(this.storage.selectedItem);
       this.imageObjects = [
         {
           image: this.product.image,
@@ -57,9 +56,7 @@ export class HouseDetailsComponent {
     let dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(dialog, dialogConfig);
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
   buyNow() {
     this.product.quantity = 1;

@@ -14,7 +14,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IProducts } from 'src/app/components/models/products';
 import { BestSellersService } from 'src/app/services/best-sellers.service';
 import { CartService } from 'src/app/services/cart.service';
@@ -95,14 +95,6 @@ export class DialogBoxComponent {
         Validators.maxLength(5),
       ]),
     });
-    // this.cartSubscription = this.productService
-    //   .getProductFromCart()
-    //   .subscribe((data) => {
-    //     this.cart = data;
-    //   });
-    // this.recentSubscription = this.productService
-    //   .getRecentlyProducts()
-    //   .subscribe((data) => (this.recent = data));
   }
 
   onConfirm() {
@@ -123,8 +115,12 @@ export class DialogBoxComponent {
       address: this.firstFormGroup.value.addressCtrl,
       index: this.firstFormGroup.value.indexCtrl,
     };
-    this.cart$.subscribe((data) => {
-      data.map((item) => (this.fullPrice += item.quantity * item.price));
-    });
+    this.cart$
+      .pipe(
+        map((data) => {
+          data.map((item) => (this.fullPrice += item.quantity * item.price));
+        })
+      )
+      .subscribe();
   }
 }

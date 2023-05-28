@@ -17,9 +17,7 @@ export class RecentService {
         .map((item) => {
           this.productService
             .deleteProductFromRecent(item.id)
-            .subscribe((data) => {
-              console.log('rest products deleted');
-            });
+            .subscribe((data) => {});
         });
     });
   }
@@ -30,7 +28,6 @@ export class RecentService {
         recId.push(recItem.id);
       });
     });
-    console.log(recId);
     cart
       .pipe(
         map((data) => {
@@ -42,7 +39,6 @@ export class RecentService {
                 .deleteProductFromRecent(item.id)
                 .subscribe(() => {
                   this.productService.postProductToRecently(item).subscribe();
-                  console.log(item);
                 });
           });
         })

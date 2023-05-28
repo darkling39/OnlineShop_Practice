@@ -43,19 +43,13 @@ export class BestSellersService {
   }
 
   postToBestSellers(product: IProducts) {
-    console.log(product);
-
     product.purchaces = 1;
     this.productService
       .postProductToBestSellers(product)
       .subscribe((data) => {});
   }
   updateToBestSellers(product: IProducts) {
-    console.log(product);
-    console.log(`puchaces before: ${product.purchaces}`);
     product.purchaces += 1;
-    console.log(`puchaces after: ${product.purchaces}`);
-
     this.productService
       .updateProductToBestSellers(product)
       .subscribe((data) => {});
