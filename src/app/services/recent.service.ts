@@ -30,23 +30,40 @@ export class RecentService {
         recId.push(recItem.id);
       });
     });
-
-    cart.subscribe((cartData) => {
-      cartData.map((cartItem) => {
-        if (!recId.includes(cartItem.id)) {
-          this.productService
-            .postProductToRecently(cartItem)
-            .subscribe((data) => {});
-        } else {
-          console.log('same');
-          this.productService
-            .deleteProductFromRecent(cartItem.id)
-            .subscribe((data) => {});
-          this.productService
-            .postProductToRecently(cartItem)
-            .subscribe((data) => {});
-        }
-      });
-    });
+    console.log(recId);
+    cart
+      .pipe(
+        map((data) => {
+          data.map((item) => {
+            if (!recId.includes(item.id))
+              this.productService.postProductToRecently(item).subscribe();
+            else
+              this.productService
+                .deleteProductFromRecent(item.id)
+                .subscribe(() => {
+                  this.productService.postProductToRecently(item).subscribe();
+                  console.log(item);
+                });
+          });
+        })
+      )
+      .subscribe();
+    // cart.subscribe((cartData) => {
+    //   cartData.map((cartItem) => {
+    //     if (!recId.includes(cartItem.id)) {
+    //       this.productService
+    //         .postProductToRecently(cartItem)
+    //         .subscribe((data) => {});
+    //     } else {
+    //       console.log('same');
+    //       this.productService
+    //         .deleteProductFromRecent(cartItem.id)
+    //         .subscribe((data) => {});
+    //       this.productService
+    //         .postProductToRecently(cartItem)
+    //         .subscribe((data) => {});
+    //     }
+    //   });
+    // });
   }
 }

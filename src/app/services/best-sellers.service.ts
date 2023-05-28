@@ -25,14 +25,8 @@ export class BestSellersService {
       cartData.map((cartItem) => {
         if (bestId.length > 0) {
           if (!bestId.includes(cartItem.id)) {
-            console.log(
-              `cart item in bestSellers: ${bestId.includes(cartItem.id)}`
-            );
             this.postToBestSellers(cartItem);
           } else {
-            console.log(
-              `cart item in bestSellers: ${bestId.includes(cartItem.id)}`
-            );
             bestSellers
               .pipe(
                 map((bData) => {
