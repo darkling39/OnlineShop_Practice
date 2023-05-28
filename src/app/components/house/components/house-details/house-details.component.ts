@@ -6,6 +6,8 @@ import { IProducts } from 'src/app/components/models/products';
 import { ProductService } from 'src/app/services/product.service';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { CartService } from 'src/app/services/cart.service';
+import { ReviewDialogComponent } from '../review-dialog/review-dialog.component';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-house-details',
@@ -13,18 +15,19 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./house-details.component.css'],
 })
 export class HouseDetailsComponent {
+  constructor(
+    private route: ActivatedRoute,
+    private productsService: ProductService,
+    public dialog: MatDialog,
+    public cartService: CartService,
+    private storage: StorageService
+  ) {}
   product: IProducts;
   productSubscription: Subscription;
   cart$: Observable<IProducts[]> = this.productsService.getProductFromCart();
   imageObjects: Array<object>;
   sliderInfinite: boolean = true;
-
-  constructor(
-    private route: ActivatedRoute,
-    private productsService: ProductService,
-    public dialog: MatDialog,
-    public cartService: CartService
-  ) {}
+  products: Observable<IProducts[]> = this.productsService.getAllProducts();
 
   // addToCart(product: IProducts) {
   //   let findItem;
@@ -55,7 +58,8 @@ export class HouseDetailsComponent {
   ngOnInit(): void {
     this.productSubscription = this.route.data.subscribe((data) => {
       this.product = data['data'];
-      console.log(this.product);
+      this.storage.selectedItem = this.product;
+      console.log(this.storage.selectedItem);
       this.imageObjects = [
         {
           image: this.product.image,
@@ -76,10 +80,10 @@ export class HouseDetailsComponent {
       ];
     });
   }
-  openDialog(): void {
+  openDialog(dialog: any): void {
     let dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
-    const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
+    const dialogRef = this.dialog.open(dialog, dialogConfig);
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
@@ -89,10 +93,10 @@ export class HouseDetailsComponent {
     this.cartService.deleteCart(this.cart$);
 
     this.productsService.postProductToCart(this.product).subscribe();
-    this.openDialog();
+    this.openDialog(DialogBoxComponent);
   }
 
   createReview() {
-    this.product.reviews.push();
+    this.openDialog(ReviewDialogComponent);
   }
 }

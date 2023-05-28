@@ -1,0 +1,31 @@
+
+  <form [formGroup]="reviewGroup" class="flex flex-col p-5 min-h-fit w-96 min-w-full" (ngSubmit)="onSubmit(this.storage.selectedItem)">
+    <ng-template matStepLabel>Fill personal data</ng-template>
+    <mat-form-field>
+      <mat-label>Create Review</mat-label>
+      <textarea
+      formControlName="reviewCtrl"
+      matInput
+      placeholder="What do you think?"
+      cdkTextareaAutosize
+      #autosize="cdkTextareaAutosize"
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="5"
+      type="text"
+      class=""></textarea>
+    </mat-form-field>
+
+    <div>
+      <button
+      class="py-2 px-4 hover:bg-indigo-400 transition-all ease-in-out duration-200 rounded-sm mt-2 "
+      mat-button
+      (click)="this.dialogRef.close()"
+      >Cancel</button>
+      <button
+      class="py-2 px-4 hover:bg-indigo-400 transition-all ease-in-out duration-200 rounded-sm mt-2 "
+      mat-button
+      type="submit"
+      [disabled]="reviewGroup.invalid"
+      >Create</button>
+    </div>
+  </form>

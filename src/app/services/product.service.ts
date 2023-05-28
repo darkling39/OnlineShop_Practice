@@ -20,6 +20,12 @@ export class ProductService {
   getSingleProduct(id: number) {
     return this.http.get<IProducts>(`${this.urlProducts}/${id}`);
   }
+  updateProduct(product: IProducts) {
+    return this.http.put<IProducts>(
+      `${this.urlProducts}/${product.id}`,
+      product
+    );
+  }
 
   postProductToRecently(product: IProducts) {
     return this.http.post<IProducts>(this.urlRecentlyProducts, product);

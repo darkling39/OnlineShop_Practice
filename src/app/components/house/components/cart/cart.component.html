@@ -9,11 +9,11 @@
   <div class="mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
 
     <div *ngIf="cart && cart.length < 1" class=" mx-auto h-56 w-full flex m-3 bg-white justify-center items-center rounded-lg"><span class="block text-2xl font-extralight text-gray-400">Cart is empty...</span></div>
-    <div *ngIf="cart && cart.length >= 1" class="flex flex-row flex-wrap gap-2 justify-center bg-gray-100 rounded-md p-4">
-      <div *ngFor="let item of cart" class="bg-white flex flex-row justify-between w-full rounded-lg p-3">
+    <div *ngIf="cart && cart.length >= 1" class="flex flex-row flex-wrap gap-2 justify-center items-center bg-gray-100 rounded-md p-4">
+      <div *ngFor="let item of cart" class="items-center bg-white flex flex-col justify-center sm:flex-row sm:justify-between w-full rounded-lg p-3">
         <!-- <button class="" [routerLink]="['../h-products/product', item.id]">
         </button> -->
-          <div class="max-w-fit p-3 flex flex-row">
+          <div class="max-w-fit p-3 flex flex-col lg:flex-row items-center">
             <img [src]="item.image" class="w-72 sm:w-40 aspect-auto">
             <div class="text-left p-3 mt-3 mx-3">
               <h3 class="text-gray-700 text-lg w-48 ">{{item.title}}</h3>

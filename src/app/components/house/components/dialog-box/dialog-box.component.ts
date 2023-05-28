@@ -8,9 +8,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, Subscription, delay, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IProducts } from 'src/app/components/models/products';
 import { BestSellersService } from 'src/app/services/best-sellers.service';
 import { CartService } from 'src/app/services/cart.service';
@@ -46,6 +50,7 @@ export class DialogBoxComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+
     private productService: ProductService,
     private router: Router,
     private cartService: CartService,
@@ -55,6 +60,7 @@ export class DialogBoxComponent {
 
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
+
   cart$: Observable<IProducts[]> = this.productService.getProductFromCart();
   // cart: IProducts[];
   // cartSubscription: Subscription;
@@ -121,6 +127,14 @@ export class DialogBoxComponent {
       data.map((item) => (this.fullPrice += item.quantity * item.price));
     });
   }
+  // openDialog(): void {
+  //   let dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   const dialogRef = this.dialog.open(ReviewDialogComponent, dialogConfig);
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     console.log('The dialog was closed');
+  //   });
+  // }
   // deleteCart() {
   //   this.cart$.subscribe((data) => {
   //     data.map((item) => {

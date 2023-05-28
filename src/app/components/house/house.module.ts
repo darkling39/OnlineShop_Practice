@@ -23,6 +23,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { ProductSortingPipe } from 'src/app/pipes/product-sorting.pipe';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { ReviewDialogComponent } from './components/review-dialog/review-dialog.component';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     CartComponent,
     DialogBoxComponent,
     ProductSortingPipe,
+    ReviewDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +55,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ReactiveFormsModule,
     MatInputModule,
     NgImageSliderModule,
+    TextFieldModule,
   ],
 })
 export class HouseModule {}

@@ -7,6 +7,7 @@ import { HouseDetailsComponent } from './components/house-details/house-details.
 import { ProductResolver } from 'src/app/resolvers/product.resolver';
 import { ProductsResolver } from 'src/app/resolvers/products.resolver';
 import { CartComponent } from './components/cart/cart.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
       },
       {
         path: 'h-cart',
+        canActivate: [AuthGuard],
         component: CartComponent,
         data: { breadcrumb: { alias: 'Cart' } },
       },
